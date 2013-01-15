@@ -30,3 +30,12 @@
 *.vrb
 *.xdy
 *.tdo
+
+.*
+*~
+tmp
+*.gz
+*.bak
+!/.gitignore
+!/.settings
+
