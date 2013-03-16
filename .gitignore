@@ -37,6 +37,7 @@ reply
 tmp
 *.gz
 *.bak
+*.brf
 !/.gitignore
 !/.settings
-*.brf
+!/.project
