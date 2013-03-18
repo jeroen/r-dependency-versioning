@@ -18,7 +18,6 @@ source communities that might work for R as well. Three use cases are defined th
 exemplify the issue, and illustrate how improving this aspect of package management
 could increase reliability while supporting further growth of the R community.}
 
-
 \section{Package management in R}
 
 One of the most powerful features of R is its infrastructure for contributed
@@ -38,7 +37,7 @@ infrastructure for contributed code. The system for sharing and installing
 contributed packages is easily taken for granted, but could in fact not
 survive without the commitment and daily efforts from the repository
 maintainers. The process from submission to publication of a package involves
-several manual steps that are needed to ensure that all published packages
+several manual steps needed to ensure that all published packages
 meet standards and work as expected, on a variety of platforms, architectures
 and R versions. In spite of rapid growth and limited resources, CRAN has
 managed to maintain high standards on the quality of packages. Before
@@ -54,9 +53,9 @@ infrastructure.
 
 \section{The dependency network}
 
-Most R packages depend on one or more other packages, resulting in a complex network
-of recursive dependencies. Each package includes a \file{DESCRIPTION} file
-which allows for declaration of several types of dependencies, including
+Most R packages depend on one or more other packages, resulting in a complex
+network of recursive dependencies. Each package includes a \file{DESCRIPTION}
+file which allows for declaration of several types of dependencies, including
 \code{Depends}, \code{Imports}, \code{Suggests} and \code{Enhances}. Based on
 the type of dependency relationship, other packages are automatically
 installed, loaded and/or attached with the requested package. Package
@@ -67,8 +66,8 @@ other packages. This prevents the need to attach all dependencies and lookup
 variables at runtime, and thereby decreases chances of masking and
 naming-conflicts. Unfortunately, many packages are not taking advantage of this
 feature, and thereby force R to attach all dependencies, unnecessarily filling
-the search path of a session with packages that the user hasn't asked for. However,
-this is not the primary focus of this paper.
+the search path of a session with packages that the user hasn't asked for.
+However, this is not the primary focus of this paper.
 
 % Over the years, the package manager, archive network and namespacing system
 % have evolved together to address issues that appeared along the way. As a
@@ -79,27 +78,40 @@ this is not the primary focus of this paper.
 \subsection{Package versioning}
 
 Even though CRAN consistently archives older versions of every package when
-updates are published, the R software itself takes limited advantage of this archive.
-R identifies packages by name only, both when installing and loading a package.
-For example, the \code{install.packages} function downloads and installs the
-\emph{current} version of a CRAN package into a single global library. The
-library contains only one version of each package. If a previous version of
+updates are published, the R software itself takes limited advantage of this
+archive. R identifies packages by name only when installing and loading a
+package. The \code{install.packages} function downloads and installs the
+\emph{current} version of a CRAN package into a single global library. This
+library can only contain one version of each package. If a previous version of
 the package is already installed on the system, it is overwritten without
 warning. Similarly, the \code{library} function will load earliest found
-package with a matching name. And when a package is loaded that requires a
-dependency, the most recent version of the dependency is again loaded from the
-global library. This default behavior is quite hard to avoid. One can try to
-manually create and maintain separate libraries for different tasks and
-projects, but there are two fundamental limitations of R that make this
-impractical. First, the default behavior of R discourages authors to explicitly
-require a specific version of a dependency, because in the situation of a
-single global library, there is only one version of each package available.
-Second, R cannot have multiple versions of the same package loaded
-simultaneously. This is perhaps the most fundamental problem because it is
-nearly impossible to work around.
+package with a matching name. 
 
-The fact that the current implementation of R identifies packages by their name
-only, implicitly makes the assumption that different versions of a package are
+The \file{DESCRIPTION} file does allow the package author to specify a certain
+version of a dependency by postfixing the name with \texttt{>=}, \texttt{<=} or
+\texttt{==} and a number. However, using this feature is actually dangerous
+because R might not be able to satisfy these conditions, resulting in errors.
+This is mainly because both R libraries and R sessions are limited to one
+version of each package. When a package requires a version of a dependency that
+is not already installed or current on CRAN, it can not be found automatically.
+Furthermore, upgrading a package in the global library to the current CRAN
+version might break other packages that require the previously installed
+version. Experienced R users might try to avoid such problems by manually
+maintaining separate libraries for different tasks and projects. However, R can
+still not have multiple versions of a package loaded concurrently. This is
+perhaps the most fundamental problem because it is nearly impossible to work
+around. If package authors would actually declare specific versions of
+dependencies, any two packages that require different versions of one and the
+same dependency will conflict and cannot be used together. In practice, this
+limitation discourages package authors to be explicit about dependency
+versions. The \texttt{>=} operator is used by some packages, but only to check
+if an installed dependency is outdated and needs to be synchronized with CRAN.
+It still assumes any current of future version will do, and does not actually
+protect the package from breaking when the dependency package changes. The
+\texttt{<=} and \texttt{==} are barely used at all.
+
+When identifying a package by its name only, we implicitly make the assumption that 
+different versions of the package are
 interchangeable. This basic assumption has far-reaching implications and
 consequences on the distributed development process and reliability of the
 software as a whole. In the context of the increasingly large pool of
@@ -107,7 +119,6 @@ inter-dependent packages, violations of this assumption are becoming
 increasingly apparent and problematic. In this paper we explore this problem is
 greater detail, and try to make a case for moving away from this assumption,
 towards systematic versioning of dependency relationships.
-
 The word dependency in this context does not exclusively refer to formally
 defined relations between R packages. Our interpretation is a bit more general in
 the sense that any R script, Sweave document, or third party application
@@ -231,8 +242,12 @@ the developer.
 
 \subsection{(2) Reproducibility}
 
-Reproducible research is an important topic in science and statistics. The CRAN Task
-View: Reproducible Research states that:
+Replication is the ultimate standard by which scientific claims are judged, but
+complexity of data and methods can make this difficult to achieve computational
+science \citep{peng2011reproducible}. As a leader in scientific computing, R
+takes a pioneering role in providing a system that encourages researchers to strive
+towards the gold standard. The CRAN Task View on Reproducible Research states
+that:
 
 \begin{quote}
 \emph{The goal of reproducible research is to tie specific instructions
@@ -278,16 +293,20 @@ environment of the author.
 Needless to say, this situation is suboptimal. For manually compiling a single
 Sweave document we might be willing to make this effort, but it does not
 provide a solid foundation for systematic or automated reproducible software
-practices. If R is to really support reproducible research, it needs better
+practices. To make results generated by R more reproducible we need better
 conventions and/or native support that is both explicit and specific about
 contributed code. For an R script or Sweave document to stand the test of time,
-it should run out of the box on at least the same version of R that was used by
-the author. In this respect, R has higher requirements on versioning
-than open source software in general. Reproducible research does not just
-require a version that will make things work, but one that generates exactly the
-same output. Hence, in order to systematically reproduce results R, package
-versions either need to be standardized, or explicitly expressed in the code.
-
+it should work at least the same version of R that was used by the author. In
+this respect, R has higher requirements on versioning than open source software
+in general. Reproducible research does not just require a version that will
+make things work, but one that generates exactly the same output. Hence, in
+order to systematically reproduce results R, package versions either need to be
+standardized, or be part of the language. This will still not be an absolute
+guarantee for perfect reproducibility, as some problems are due to OS or
+compiler specific behavior. But it will be a major step that potentially shifts
+the balance and makes reproducibility of output in R the standard instead of
+the exception.
+ 
 \subsection{(3) Production applications}
 
 R is no longer exclusively used by the local statistician through an
@@ -472,17 +491,15 @@ Given that the community of R contributors evolves mainly around CRAN, the most
 desirable approach to organizing staging would be by integrating it with the
 publication process. Currently, CRAN is managed as what distributions would
 consider a \dfn{development} or \dfn{unstable} branch. It is the pool of
-\dfn{bleeding edge} packages, straight from the developers.
-%
-% As a result, it is wise to assume that software in this branch might break on a
-% regular basis, as a result of dependency changes. Regular users are not supposed
-% to use software from unstable branches; it is used only by developers to share
-% latest versions of their software and test compatibility and dependencies.
-% Regular users should obtain software releases from \dfn{stable} branches. This
-% already sounds familiar: the r-base software also distinguished between stable
-% versions \dfn{r-release} and \dfn{r-release-old}, and an unstable development
-% version, \dfn{r-devel}.
-%
+\dfn{bleeding edge} packages, straight from the developers. Consequently it is
+wise to assume that software in this branch might break on a regular basis, due
+to changes in dependencies. Therefore, a \dfn{unstable} branch is often only
+used by developers to exchange latest versions of their software and test
+compatibility. Regular users obtain software releases from \dfn{stable}
+branches. This already sounds familiar: the r-base software also distinguished
+between stable versions \dfn{r-release} and \dfn{r-release-old}, and an
+unstable development version, \dfn{r-devel}.
+
 The fact that R already has an semi-annual release cycle for the 29 \code{base}
 and \code{recommended} packages, would make it relatively straightforward to
 extend this cycle to CRAN packages. A snapshot of CRAN could be frozen along
@@ -660,7 +677,7 @@ and package updates being installed on the machine. The private library of any
 package contains all required dependencies, with the exact versions that
 were used to develop the package. A package or application that has been
 tested to work with certain versions of its dependencies, can easily be
-installed a year later on another machine, even though the latest versions of
+installed years on another machine, even though the latest versions of
 dependencies have had major changes in the mean time.
 
 \subsubsection{Back to R}
@@ -668,21 +685,26 @@ dependencies have had major changes in the mean time.
 A similar way of managing packages could be very beneficial to R as well. It would
 enable the same dynamic development and stable installation of packages that has
 resulted in a small revolution within the Javascript community. The only serious
-drawback of this approach is that it requires more disk space and slightly
-more memory, but most users and developers will happily pay this small price for
-reliable software and reduced debugging time. Unfortunately, implementing a package
-manager like NPM for R would require some fundamental changes in the way R installs
-and loads packages and namespaces, which might break backward compatibility at this
-point.
-One change that would probably be required for this is to move away from the
-\texttt{Depends} relation definition, and require all packages to rely on
-\texttt{Imports} and a \texttt{NAMESPACE} file to explicitly import objects
-from other packages. A more challenging problem might be that R should be able
-to load multiple versions of a package simultaneously while keeping their
-namespaces separated. This is necessary for example when two different packages
-are in use, which both depend on different versions of one and the same third
-package. In this case, the objects, methods and classes exported by the
-dependency package should affect only to the package that imported them.
+drawback of this design is that it requires more disk space and slightly
+more memory, due to multiple versions packages being installed and/or loaded.
+Yet the memory required to load an additional package is minor in comparison
+with loading and manipulating a medium sized dataset. Considering the wide
+availability of low cost disk space and memory these days, we expect that most
+users and developers will happily pay this small price for more reliable
+software and reduced debugging time. 
+
+Unfortunately, implementing a package manager like NPM for R would require some
+fundamental changes in the way R installs and loads packages and namespaces,
+which might break backward compatibility at this point. One change that would
+probably be required for this is to move away from the \texttt{Depends}
+relation definition, and require all packages to rely on \texttt{Imports} and a
+\texttt{NAMESPACE} file to explicitly import objects from other packages. A
+more challenging problem might be that R should be able to load multiple
+versions of a package simultaneously while keeping their namespaces separated.
+This is necessary for example when two different packages are in use, which
+both depend on different versions of one and the same third package. In this
+case, the objects, methods and classes exported by the dependency package
+should affect only to the package that imported them.
 
 Finally, it would be great if the package manager was capable of installing
 multiple versions of a package inside the global library, for example by appending
@@ -709,17 +731,17 @@ This value indicates that any version will do, in which case the package
 manager gives preference to the most recent available version of the package.
 
 The benefits of a package manager capable of importing specific versions of
-packages would not just be limited to contributed code. Once such a package
-manager is in place, this would reduce the necessity to include all of the
-standard library in the R releases. The R Core team could consider moving some
-of the \emph{base} and \emph{recommended} packages out of the \texttt{r-base}
-distribution, and offer them exclusively through CRAN. This way, the R software
-could eventually become the minimal core containing only the language
-interpreter and package manager, similar to e.g. Node and NPM. More high-level
-functionality could be loaded on demand as versioning is controlled by the
-package manager. This would allow for less frequent releases of the R software
-itself, and further improve compatibility and reproducibility between versions
-of R.
+packages would not just be limited to contributed code. Such a package
+manager would also reduce the necessity to include all of the standard library
+and more in the R releases. If implemented, the R Core team could consider
+moving some of the \emph{base} and \emph{recommended} packages out of the
+\texttt{r-base} distribution, and offer them exclusively through CRAN. This
+way, the R software could eventually become the minimal core containing only
+the language interpreter and package manager, similar to e.g. Node and NPM.
+More high-level functionality could be loaded on demand as versioning is
+controlled by the package manager. This would allow for less frequent releases
+of the R software itself, and further improve compatibility and reproducibility
+between versions of R.
 
 \section{Summary}
 
@@ -747,14 +769,15 @@ the \dfn{r-release} and \dfn{r-devel} branches to the full CRAN repository, and
 only publish updates of contributed packages to the \dfn{r-devel}
 branch of R. This way, the \dfn{released} versions of R are tied to a fixed
 version of every CRAN package, which makes the code base and behavior of a
-given release of R less ambiguous. Furthermore, it allows concentrating
-and coordination and testing of contributed packages along with releases of R,
-rather than continuously throughout the year.
+given release of R less ambiguous. Furthermore, it allows concentrations of
+coordination and testing efforts of contributed packages along with releases of
+R, rather than continuously throughout the year.
 
 In the long term, a more fundamental revision of the packaging system could be
 considered, in order to facilitate dynamic contributed development without
 sacrificing reliability. However, this would involve major changes in the way
-libraries and namespaces are managed.
+libraries and namespaces are managed. The most challenging problem will be
+support for concurrently loading multiple versions of a package. 
 %The core challenges to be addressed are
 %support for loading of multiple versions of a package, and introducing a
 %notation for declaring and importing of explicitly versioned dependencies.
