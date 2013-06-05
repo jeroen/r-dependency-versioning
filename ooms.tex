@@ -69,12 +69,6 @@ feature, and thereby force R to attach all dependencies, unnecessarily filling
 the search path of a session with packages that the user hasn't asked for.
 However, this is not the primary focus of this paper.
 
-% Over the years, the package manager, archive network and namespacing system
-% have evolved together to address issues that appeared along the way. As a
-% result these have become, perhaps more than necessary, intertwined. This makes
-% it hard to introduce changes, or propose an alternative package manager, without
-% changes in base R.
-
 \subsection{Package versioning}
 
 Even though CRAN consistently archives older versions of every package when
@@ -128,39 +122,6 @@ believe that limitations of the current dependency system is underlying
 multiple problems that R users and developers are experiencing. Properly
 addressing this concern could resolve several lingering issues at once,
 and make R a more reliable and widely applicable analytical engine.
-
-
-
-%
-%  When thinking of a single package, this
-% might not seem like severe restriction, as we are happy to be using the latest
-% and greatest versions of packages.
-%
-%
-% If, for some reason, we really need to use
-% a specific version of a package, it can be manually downloaded and installed it
-% in a special directory, and then loaded using the \code{lib.loc} parameter from
-% the \code{library} function. However, quite likely the old package will only
-% work on an old version of R with old versions of the dependency packages.
-
-
-
-
-
-% However, it is not unlikely that we will encounter further trouble. If the
-% package version is quite old, chances are that older versions of its dependency
-% packages are required make it work. Problems will start adding up when we need
-% to load a number of older packages with specific versions and their
-% dependencies. They might resulting in additional conflicts, or be completely
-% incompatible.
-
-%This paper explores the problem of dependencies in further detail.
-
-
-
-
-
-
 
 \section{Use cases}
 
@@ -317,16 +278,6 @@ such an application, even a minor change in code or behavior can result in
 complete failure of the system and cannot easily be fixed or debugged.
 Therefore, when an application is put in production, software has to be
 completely frozen.
-% Software in production stage should not change, which is the main difference
-% with software in development stage, which is much more dynamic. Open-source
-% applications usually consists of a stack of software, e.g from low-level C
-% libraries to a high level web interface and everything in between. Any version
-% of the application depends on certain versions of the entire underlying stack.
-% Once the application stack is frozen, it goes through a number of testing and
-% patching iterations, until the branch can be considered stable. The software is
-% then packaged, shipped and deployed, and should be able to run without changes
-% in behavior for a number of years. No updates will be installed without first
-% going through the testing phases again.
 
 An application that builds on R has been developed and tested with certain
 version of the base software and R packages used by the application. In order
@@ -379,23 +330,6 @@ code base that is hosted in this repository. Yet through well organized staging 
 testing, this distribution is known to be one of the most reliable operating
 systems today, and is the foundation for a large share of the global IT
 infrastructure.
-
-% A similar approach is exemplified by
-% distributions for the \TeX\xspace typesetting environment. Systems like \texttt{TeXLive},
-% \texttt{MiKTeX} and \texttt{MacTeX} annually release a meta-package containing a large
-% collection of major TeX-related programs, macros, and fonts. These distributions too
-% combine code from several sources into a single distributable software system. They
-% provide the user with convenient repositories, package management tools, and support
-% for certain operating systems. The release cycle allows for reviewing and managing
-% upstream changes, perform testing and code control before releasing anything to
-% their users. In the context of TeX, this has proven to work well, and has become the
-% preferred way of using TeX for many users. We could consider if something similar
-% could work for R. The semi annual releases of the r-base software suite can already
-% be considered as a distribution of the 29 \code{base} and \code{recommended} packages.
-% However, a major difference is that in the case of R, the distribution is limited to
-% software that has been centrally developed and released by the same group of people.
-% Later in this section we will discuss what would be involved with extending this
-% release cycle to contributed packages.
 
 \subsection{The release cycle}
 
@@ -451,12 +385,6 @@ distribution, resulting in a somewhat arbitrary and perhaps unfortunate
 snapshot of CRAN packages when the distribution freezes. Also, different
 distributions will have different policies on if, when and which packages they
 wish to ship with their system.
-% These problems can be
-% partially addressed by creating custom repositories for R packages that do not
-% ship with the main distribution, which is done for example by Michael Rutter's
-% \texttt{C2D4U} on Ubuntu. However, when relying on custom repositories, there is no longer
-% a single stable version of every CRAN package that can be considered the
-% default among all users of the distribution, so this sets a weaker standard.
 
 Another approach is illustrated by domain-specific projects like BioConductor
 (genomic data) and REvolution R Enterprise (big data). Both these systems
@@ -565,7 +493,6 @@ can be warned and will have sufficient time to fix problems before the next
 
 \section{Solution 2: modern package management}
 
-
 The previous section described the ``classical'' solution of creating distributable
 sets of compatible, stable software. This is a proven approach and has been
 adopted in some way or another by many open-source communities. However, one
@@ -617,7 +544,7 @@ simple dedicated syntax, that extends some of the standard versioning notation.
 Below a snippet taken from the \file{package.json} file in the NPM manual:
 
 \begin{example}
-   "dependencies" : \{
+   "dependencies" : {
       "foo" : "1.0.0 - 2.9999.9999",
       "bar" : ">=1.0.2 <2.1.2",
       "baz" : ">1.0.2 <=2.3.4",
@@ -628,7 +555,7 @@ Below a snippet taken from the \file{package.json} file in the NPM manual:
       "elf" : "~1.2.3",
       "two" : "2.x",
       "thr" : "3.3.x",
-   \}
+   }
 \end{example}
 
 \noindent The version range descriptor syntax is a powerful tool to specify
@@ -772,9 +699,6 @@ considered, in order to facilitate dynamic contributed development without
 sacrificing reliability. However, this would involve major changes in the way
 libraries and namespaces are managed. The most challenging problem will be
 support for concurrently loading multiple versions of a package. 
-%The core challenges to be addressed are
-%support for loading of multiple versions of a package, and introducing a
-%notation for declaring and importing of explicitly versioned dependencies.
 But when the time is ready to make the jump to the next major release of R, we
 hope that R Core will consider revising this important part of the software,
 adopting modern approaches and best practices of package management that are
@@ -787,5 +711,5 @@ powering collaboration and uniting efforts within other open source communities.
   University of California\\
   Los Angeles}\\
 \email{jeroen.ooms@stat.ucla.edu} \\
-\url{http://jeroenooms.github.com/}
+\url{http://jeroenooms.github.io/}
 
