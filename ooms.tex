@@ -26,7 +26,7 @@ times per year ships with the \dfn{base} and \dfn{recommended} packages and
 provides a solid foundation for statistical computing. However, most R users
 will quickly resort to the package manager and install packages contributed by
 other users. By default, these packages are installed from the ``Comprehensive
-R Archive Network'' (\dfn{CRAN}), featuring over 4300 contributed packages as
+R Archive Network'' (\CRANpkg{CRAN}), featuring over 4300 contributed packages as
 of 2013. In addition, other repositories like BioConductor \citep{bioc} and
 Github \citep{dabbish2012social} are hosting a respectable number of packages
 as well.
@@ -43,8 +43,8 @@ and R versions. In spite of rapid growth and limited resources, CRAN has
 managed to maintain high standards on the quality of packages. Before
 continuing, we want to express appreciation for the countless hours invested
 by volunteers in organizing this unique forum for statistical software.
-They have facilitated development, innovation and collaboration in our field,
-and united the community in creating software that is both of the highest
+They facilitate the innovation and collaboration in our field,
+and unite the community in creating software that is both of the highest
 quality and publicly available. We want to emphasize that suggestions made in
 this paper are in no way intended as criticism on the status quo. If anything,
 we hope that our ideas help address some challenges to support further growth
@@ -74,16 +74,16 @@ However, this is not the primary focus of this paper.
 Even though CRAN consistently archives older versions of every package when
 updates are published, the R software itself takes limited advantage of this
 archive. The package manager identifies packages by name only when installing
-and loading a package. The \code{install.packages} function downloads and
+or loading a package. The \code{install.packages} function downloads and
 installs the \emph{current} version of a CRAN package into a single global
 library. This library contains a single version of each package. If a previous
 version of the package is already installed on the system, it is overwritten
-without warning. Similarly, the \code{library} function will load earliest
+without warning. Similarly, the \code{library} function will load the earliest
 found package with a matching name.
 
 The \file{DESCRIPTION} file does allow the package author to specify a certain
-version of a dependency by postfixing the name with \texttt{>=}, \texttt{<=} or
-\texttt{==} and a number. However, using this feature is actually dangerous
+version of a dependency by postfixing the package name with \texttt{>=}, \texttt{<=} or
+\texttt{==} and a version string. However, using this feature is actually dangerous
 because R might not be able to satisfy these conditions, causing errors. This is
 again the result of R libraries, sessions and repositories being limited to a
 single current version of each package. When a package would require a version
@@ -95,7 +95,7 @@ problems by manually maintaining separate libraries for different tasks and
 projects. However, R can still not have multiple versions of a package loaded
 concurrently. This is perhaps the most fundamental problem because it is nearly
 impossible to work around. If package authors would actually declare specific
-versions of dependencies, any two packages that require different versions of
+versions of dependencies, any two packages requiring different versions of
 one and the same dependency will conflict and cannot be used together. In
 practice, this limitation discourages package authors to be explicit about
 dependency versions. The \texttt{>=} operator is used by some packages, but
@@ -113,7 +113,7 @@ of the increasingly large pool of inter-dependent packages, violations of this
 assumption are becoming increasingly apparent and problematic. In this paper we
 explore this problem is greater detail, and try to make a case for moving away
 from this assumption, towards systematic versioning of dependency relationships.
-The term dependency in this context does not exclusively refer to formally
+The term \emph{dependency} in this context does not exclusively refer to formally
 defined relations between R packages. Our interpretation is a bit more general in
 the sense that any R script, Sweave document, or third party application
 \dfn{depends} on R and certain packages that are needed to make it function.
@@ -226,7 +226,7 @@ in such a situation, recovering the packages needed to reproduce the document
 might turn out to be non-trivial.
 
 An example: suppose we would like to reproduce a Sweave document which was
-created with R 2.13 and loads the \pkg{caret} package. If no further
+created with R 2.13 and loads the \pkg{caret} package \citep{caret}. If no further
 instructions are provided, this means that any of the approximately 25 releases
 of \pkg{caret} in the life cycle of R 2.13 (April 2011 to February 2012) could
 have been used, making reproducibility unlikely. Sometimes authors add comments
@@ -253,13 +253,13 @@ environment of the author.
 Needless to say, this situation is suboptimal. For manually compiling a single
 Sweave document we might be willing to make this effort, but it does not
 provide a solid foundation for systematic or automated reproducible software
-practices. To make results generated by R more reproducible we need better
+practices. To make results generated by R more reproducible, we need better
 conventions and/or native support that is both explicit and specific about
 contributed code. For an R script or Sweave document to stand the test of time,
-it should work at least the same version of R that was used by the author. In
-this respect, R has higher requirements on versioning than open source software
-in general. Reproducible research does not just require a version that will
-make things work, but one that generates exactly the same output. Hence, in
+it should work at least on the same version of R that was used by the author. In
+this respect, R has higher requirements on versioning than other software.
+Reproducible research does not just require a version that will
+make things work, but one that generates exactly the same output. In
 order to systematically reproduce results R, package versions either need to be
 standardized, or become a natural part of the language. We realize this will
 not archive perfect reproducibility, as problems can still arise due to OS or
@@ -285,12 +285,12 @@ to put this application in production, exactly these versions need to be
 installed and loaded by the application on production servers. Managing,
 distributing and deploying production software with R is remarkably hard, due
 to limited native dependency versioning and the single global library design.
-One might find out the hard way that an application that was working in one
+An administrator might discover that an application that was working in one
 place doesn't work elsewhere, even though exactly the same operating system,
 version of R, and installation scripts were used. The problem of course is that
 the contributed packages constantly change. Problems become more complicated
-when a machine is hosting several applications that were developed by different
-people using different packages or package versions.
+when a machine is hosting many applications that were developed by different
+people and depend on various packages and package versions.
 
 The default behavior of loading packages from a global library with bleeding
 edge versions is unsuitable for building applications. Because the CRAN
@@ -343,7 +343,7 @@ other problems. At the date of the code freeze, a copy (fork) of the unstable
 repository is made, named and versioned, which goes into the \dfn{testing}
 phase. Software in this branch will then be subject to several iterations of
 intensive testing and bug fixing, sometimes accompanied by \dfn{alpha} or
-\dfn{beta} releases. However, the software versions in the testing branch will
+\dfn{beta} releases of the distribution. However, software versions in the testing branch will
 no longer receive any major updates that could potentially have side effects
 or break other packages. The goal is to converge to increasingly stable set of
 software. When after several testing rounds the distribution maintainers are
@@ -361,9 +361,9 @@ development efforts together.
 
 The semi annual releases of the r-base software suite can already be considered
 as a distribution of the 29 \code{base} and \code{recommended} packages.
-However, a major difference is that in the case of R, the distribution is
-limited to software that has been centrally developed and released by the same
-group of people. Due to the lack of native support for dependency versioning in
+However in the case of R, this collection is limited to software that has been centrally
+developed and released by the same group of people; it does not include contributed
+code. Due to the lack of native support for dependency versioning in
 R, several projects have introduced some form of downstream staging in order to
 create stable, redistributable collections R software. This section lists some
 examples and explains why this is suboptimal. In the next section we will
@@ -374,7 +374,7 @@ One way of staging R packages downstream is by including them in existing
 software distributions. For example, \citet{cran2deb} have wrapped some popular
 CRAN packages into \texttt{deb} packages for the Debian and Ubuntu systems.
 Thereby, pre-compiled binaries are shipped in the distribution along with the R
-base software putting version compatibility in the hands of the maintainers
+base software, putting version compatibility in the hands of the maintainers
 (among many other benefits).
 This works well, but requires a lot of effort and commitment from the package
 maintainer, which is why this has only been done for a small subset of the CRAN
@@ -391,7 +391,7 @@ Another approach is illustrated by domain-specific projects like BioConductor
 combine a fixed version of R with a custom library of frozen R packages. In
 the case of REvolution, the full library is included with the installer; for
 BioConductor they are provided through a dedicated repository. In both cases,
-this effectively prevents the software from being altered unexpectedly by
+this effectively prevents installed software from being altered unexpectedly by
 upstream changes. However, this also leads to a split in the community between
 users of R, BioConductor, and REvolution Enterprise. Because of the differences
 in libraries, R code is not automatically portable between these systems,
@@ -401,14 +401,14 @@ most users of R. Furthermore, both projects only target a limited set of
 packages; they still rely on CRAN for the majority of the contributed code.
 
 The goal of staging is to tie a fixed set of contributed packages to a certain
-release of R. If these decisions are passed down to local distributions or
-organizations, a multitude of conventions and repositories arise, and different
-groups of users will still be using different packages. This leads to
-fragmentation of the community by system or distribution channel. Moreover, it
-is often hard to assess compatibility of third party packages, resulting in
-somewhat arbitrary local decision making. It seems that the package authors
-themselves are really in the best position to manage and control compatibility.
-This leads us to conclude that the only appropriate place to organize staging
+release of R. If these decisions are passed down to distributions or organizations, 
+a multitude of local conventions and repositories arises, and different
+groups of users will still be using different package versions. This leads to
+unnecessary fragmentation of the community by system, organization, or distribution
+channel. Moreover, it is often hard to assess compatibility of third party packages, 
+resulting in somewhat arbitrary local decision making. It seems that the people who
+are in the best position to manage and control compatibility are the package authors
+themselves. This leads us to conclude that a more appropriate place to organize staging
 of R packages is further upstream.
 
 \subsection{Branching and staging in CRAN itself}
@@ -419,7 +419,7 @@ publication process. Currently, CRAN is managed as what distributions would
 consider a \dfn{development} or \dfn{unstable} branch. It consists of the pool
 of \dfn{bleeding-edge} versions, straight from package authors. Consequently it
 is wise to assume that software in this branch might break on a regular
-basis, due to changes in dependencies. Usually, the main purpose of an
+basis. Usually, the main purpose of an
 \dfn{unstable} branch is for developers to exchange new versions and test
 compatibility of software. Regular users obtain software releases from
 \dfn{stable} branches instead. This does not sound unfamiliar: the r-base
@@ -437,7 +437,7 @@ containing symbolic links to the versions of the packages considered
 Windows, CRAN actually already has separate directories with builds for each
 release of R. However currently these are not frozen and continuously updated.
 In a staged repository, newly submitted packages are only build for the current
-\dfn{devel} and \dfn{testing} branches; they should not affect previous
+\dfn{devel} and \dfn{testing} branches; they should not affect \dfn{stable}
 releases. Exceptions to this process could still be granted to authors that need
 to push an important update or bugfix within a stable branch, commonly referred
 to as \dfn{backporting}, but this should only happen incidentally.
@@ -497,7 +497,7 @@ The previous section described the ``classical'' solution of creating distributa
 sets of compatible, stable software. This is a proven approach and has been
 adopted in some way or another by many open-source communities. However, one
 drawback of this approach might be that some additional coordination is needed
-for every release. Another drawback might be that it makes the software a bit
+for every release. Another drawback is that it makes the software a bit
 more conservative, in the sense that regular users will generally be using
 versions of packages that are at least a couple of months old. The current
 section describes a different approach to the problem that is used by for
@@ -520,7 +520,7 @@ makes an interesting role model for a modern solution to the problem.\\
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=0.2\textwidth]{npm}
+  \includegraphics[width=0.3\textwidth]{npm}
 \end{figure}
 
 \noindent The Javascript community can be described as decentralized,
@@ -546,7 +546,7 @@ and \emph{version range descriptor}. This descriptor is specified using a
 simple dedicated syntax, that extends some of the standard versioning notation.
 Below a snippet taken from the \file{package.json} file in the NPM manual:
 
-\begin{example}
+\begin{verbatim}
    "dependencies" : {
       "foo" : "1.0.0 - 2.9999.9999",
       "bar" : ">=1.0.2 <2.1.2",
@@ -559,14 +559,14 @@ Below a snippet taken from the \file{package.json} file in the NPM manual:
       "two" : "2.x",
       "thr" : "3.3.x",
    }
-\end{example}
+\end{verbatim}
 
 \noindent The version range descriptor syntax is a powerful tool to specify
 which version(s) or version range(s) of dependencies are required. It provides the exact
 information needed to build, install and/or load the software. In contrast to R,
 NPM takes full advantage of this information. In R, all packages are installed
 in one or more global libraries, and at any given time a subset of these packages
-is loaded into memory. This is where NPM takes a very different approach. During
+is loaded in memory. This is where NPM takes a very different approach. During
 installation of a package, NPM creates a \emph{subdirectory} for dependencies inside
 the installation directory of the package. It compares the list of dependency
 declarations from the \file{package.json} with an index of the repository archive,
@@ -601,7 +601,7 @@ and package updates being installed on the machine. The private library of any
 package contains all required dependencies, with the exact versions that
 were used to develop the package. A package or application that has been
 tested to work with certain versions of its dependencies, can easily be
-installed years on another machine, even though the latest versions of
+installed years later on another machine, even though the latest versions of
 dependencies have had major changes in the mean time.
 
 \subsubsection{Back to R}
@@ -625,13 +625,13 @@ relation definition, and require all packages to rely on \texttt{Imports} and a
 \texttt{NAMESPACE} file to explicitly import objects from other packages. A
 more challenging problem might be that R should be able to load multiple
 versions of a package simultaneously while keeping their namespaces separated.
-This is necessary for example when two different packages are in use, which
+This is necessary for example when two packages are in use, which
 both depend on different versions of one and the same third package. In this
 case, the objects, methods and classes exported by the dependency package
 should affect only to the package that imported them.
 
 Finally, it would be great if the package manager was capable of installing
-multiple versions of a package inside the global library, for example by appending
+multiple versions of a package inside a library, for example by appending
 the package version to the name of the installation directory (e.g. \texttt{MASS\_7.3-22}).
 The \texttt{library} and \texttt{require} functions could then be extended with
 an argument specifying the version to be loaded. This argument could use the

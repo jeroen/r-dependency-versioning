@@ -1,4 +1,4 @@
-\begin{thebibliography}{7}
+\begin{thebibliography}{8}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -23,6 +23,14 @@ D.~Eddelbuettel and C.~Blundell.
 J.~Fox.
 \newblock Aspects of the social organization and trajectory of the r project.
 \newblock \emph{The R Journal}, 1\penalty0 (2):\penalty0 5--13, 2009.
+
+\bibitem[from Jed~Wing et~al.(2013)from Jed~Wing, Weston, Williams, Keefer,
+  Engelhardt, and Cooper]{caret}
+M.~K.~C. from Jed~Wing, S.~Weston, A.~Williams, C.~Keefer, A.~Engelhardt, and
+  T.~Cooper.
+\newblock \emph{caret: Classification and Regression Training}, 2013.
+\newblock URL \url{http://CRAN.R-project.org/package=caret}.
+\newblock R package version 5.16-04.
 
 \bibitem[Gentleman et~al.(2004)Gentleman, Carey, Bates, Bolstad, Dettling,
   Dudoit, Ellis, Gautier, Ge, Gentry, et~al.]{bioc}
