@@ -1,0 +1,55 @@
+\begin{thebibliography}{7}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Dabbish et~al.(2012)Dabbish, Stuart, Tsay, and
+  Herbsleb]{dabbish2012social}
+L.~Dabbish, C.~Stuart, J.~Tsay, and J.~Herbsleb.
+\newblock Social coding in github: transparency and collaboration in an open
+  software repository.
+\newblock In \emph{Proceedings of the ACM 2012 conference on Computer Supported
+  Cooperative Work}, pages 1277--1286. ACM, 2012.
+
+\bibitem[Eddelbuettel and Blundell(2009)]{cran2deb}
+D.~Eddelbuettel and C.~Blundell.
+\newblock cran2deb: A fully automated cran to debian package generation system.
+\newblock Presented at UseR Conference, July 10-12, Rennes, 2009.
+\newblock URL \url{https://r-forge.r-project.org/projects/cran2deb/}.
+
+\bibitem[Fox(2009)]{fox2009aspects}
+J.~Fox.
+\newblock Aspects of the social organization and trajectory of the r project.
+\newblock \emph{The R Journal}, 1\penalty0 (2):\penalty0 5--13, 2009.
+
+\bibitem[Gentleman et~al.(2004)Gentleman, Carey, Bates, Bolstad, Dettling,
+  Dudoit, Ellis, Gautier, Ge, Gentry, et~al.]{bioc}
+R.~Gentleman, V.~Carey, D.~Bates, B.~Bolstad, M.~Dettling, S.~Dudoit, B.~Ellis,
+  L.~Gautier, Y.~Ge, J.~Gentry, et~al.
+\newblock Bioconductor: open software development for computational biology and
+  bioinformatics.
+\newblock \emph{Genome biology}, 5\penalty0 (10):\penalty0 R80, 2004.
+
+\bibitem[Leisch(2002)]{leisch2002sweave}
+F.~Leisch.
+\newblock Sweave. dynamic generation of statistical reports using literate data
+  analysis.
+\newblock \emph{Report Series SFB "Adaptive Information Systems and Modelling
+  in Economics and Management Science"}, 2002.
+\newblock URL \url{http://epub.wu.ac.at/1788/1/document.pdf}.
+
+\bibitem[Peng(2011)]{peng2011reproducible}
+R.~D. Peng.
+\newblock Reproducible research in computational science.
+\newblock \emph{Science}, 334\penalty0 (6060):\penalty0 1226--1227, 2011.
+
+\bibitem[Wickham(2009)]{ggplot2}
+H.~Wickham.
+\newblock \emph{ggplot2: elegant graphics for data analysis}.
+\newblock Springer New York, 2009.
+\newblock ISBN 978-0-387-98140-6.
+\newblock URL \url{http://had.co.nz/ggplot2/book}.
+
+\end{thebibliography}
