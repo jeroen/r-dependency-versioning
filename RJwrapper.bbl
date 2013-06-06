@@ -24,14 +24,6 @@ J.~Fox.
 \newblock Aspects of the social organization and trajectory of the r project.
 \newblock \emph{The R Journal}, 1\penalty0 (2):\penalty0 5--13, 2009.
 
-\bibitem[from Jed~Wing et~al.(2013)from Jed~Wing, Weston, Williams, Keefer,
-  Engelhardt, and Cooper]{caret}
-M.~K.~C. from Jed~Wing, S.~Weston, A.~Williams, C.~Keefer, A.~Engelhardt, and
-  T.~Cooper.
-\newblock \emph{caret: Classification and Regression Training}, 2013.
-\newblock URL \url{http://CRAN.R-project.org/package=caret}.
-\newblock R package version 5.16-04.
-
 \bibitem[Gentleman et~al.(2004)Gentleman, Carey, Bates, Bolstad, Dettling,
   Dudoit, Ellis, Gautier, Ge, Gentry, et~al.]{bioc}
 R.~Gentleman, V.~Carey, D.~Bates, B.~Bolstad, M.~Dettling, S.~Dudoit, B.~Ellis,
@@ -39,6 +31,12 @@ R.~Gentleman, V.~Carey, D.~Bates, B.~Bolstad, M.~Dettling, S.~Dudoit, B.~Ellis,
 \newblock Bioconductor: open software development for computational biology and
   bioinformatics.
 \newblock \emph{Genome biology}, 5\penalty0 (10):\penalty0 R80, 2004.
+
+\bibitem[Kuhn(2013)]{caret}
+M.~Kuhn.
+\newblock \emph{caret: Classification and Regression Training}, 2013.
+\newblock URL \url{http://CRAN.R-project.org/package=caret}.
+\newblock R package version 5.16-04.
 
 \bibitem[Leisch(2002)]{leisch2002sweave}
 F.~Leisch.
