@@ -113,14 +113,14 @@ of the increasingly large pool of inter-dependent packages, violations of this
 assumption are becoming increasingly apparent and problematic. In this paper we
 explore this problem is greater detail, and try to make a case for moving away
 from this assumption, towards systematic versioning of dependency relationships.
-The term \emph{dependency} in this context does not exclusively refer to formally
+The term \dfn{dependency} in this context does not exclusively refer to formally
 defined relations between R packages. Our interpretation is a bit more general in
 the sense that any R script, Sweave document, or third party application
 \dfn{depends} on R and certain packages that are needed to make it function.
 The paper is largely motivated by personal experiences, as we have come to
-believe that limitations of the current dependency system is underlying
-multiple problems that R users and developers are experiencing. Properly
-addressing this concern could resolve several lingering issues at once,
+believe that limitations of the current dependency system are underlying
+multiple problems that R users and developers might experience. Properly
+addressing these concerns could resolve several lingering issues at once,
 and make R a more reliable and widely applicable analytical engine.
 
 \section{Use cases}
@@ -143,7 +143,7 @@ appears in the context of R. This section describes three use cases that
 reveal some limitations of the current system. These use cases delineate
 the problem and lead towards suggestions for improvements in subsequent sections.
 
-\subsection{(1) Archive / repository maintenance}
+\subsection{Case 1: Archive / repository maintenance}
 
 A medium to large sized repository with thousands of packages has a complicated
 network of dependencies between packages. CRAN is designed to consider the very
@@ -200,9 +200,9 @@ interesting role models to our community. As we will see later on, a properly
 archived repository can actually come to be a great asset rather than a
 liability to the developer.
 
-\subsection{(2) Reproducibility}
+\subsection{Case 2: Reproducibility}
 
-Replication is the ultimate standard by which scientific claims are judged, but
+Replication is the ultimate standard by which scientific claims are judged. However,
 complexity of data and methods can make this difficult to achieve computational
 science \citep{peng2011reproducible}. As a leader in scientific computing, R
 takes a pioneering role in providing a system that encourages researchers to strive
@@ -264,10 +264,10 @@ order to systematically reproduce results R, package versions either need to be
 standardized, or become a natural part of the language. We realize this will
 not archive perfect reproducibility, as problems can still arise due to OS or
 compiler specific behavior. However, it will be a major step forward that has
-the potential of turning reproducibility into a standard feature of the
+the potential of turning reproducibility into a natural feature of the
 software, rather than a tedious exercise.
  
-\subsection{(3) Production applications}
+\subsection{Case 3: Production applications}
 
 R is no longer exclusively used by the local statistician through an
 interactive console. It is increasingly powering systems, stacks and
@@ -280,12 +280,12 @@ Therefore, when an application is put in production, software has to be
 completely frozen.
 
 An application that builds on R has been developed and tested with certain
-version of the base software and R packages used by the application. In order
-to put this application in production, exactly these versions need to be
+versions of the base software and R packages used by the application. In order
+to put this application in production, exactly these versions need to be shipped,
 installed and loaded by the application on production servers. Managing,
 distributing and deploying production software with R is remarkably hard, due
 to limited native dependency versioning and the single global library design.
-An administrator might discover that an application that was working in one
+Administrators might discover that an application that was working in one
 place doesn't work elsewhere, even though exactly the same operating system,
 version of R, and installation scripts were used. The problem of course is that
 the contributed packages constantly change. Problems become more complicated
@@ -312,7 +312,7 @@ source communities, and suggest how these might apply to R. The current section
 describes the more classic solution that relies on staged software
 \dfn{distributions}.
 
-A "software distribution" (also referred to as a "distribution" or a "distro")
+A \dfn{software distribution} (also referred to as a \dfn{distribution} or a \dfn{distro})
 is a collection of software components built, assembled and configured so that
 it can be used essentially "as is" for its intended purpose. Maintainers of
 distributions do not develop software themselves; they collect software from
@@ -375,7 +375,7 @@ software distributions. For example, \citet{cran2deb} have wrapped some popular
 CRAN packages into \texttt{deb} packages for the Debian and Ubuntu systems.
 Thereby, pre-compiled binaries are shipped in the distribution along with the R
 base software, putting version compatibility in the hands of the maintainers
-(among many other benefits).
+(among other benefits).
 This works well, but requires a lot of effort and commitment from the package
 maintainer, which is why this has only been done for a small subset of the CRAN
 packages. Most distributions expect high standards on the quality of the
@@ -511,7 +511,7 @@ the node.js software (for short: \dfn{node}), a Javascript server system based
 on the open source engine \dfn{V8} from Google. One of the reasons that the
 community has been able to grow rapidly is because of the excellent package
 manager and identically named repository, \dfn{NPM}. Even though this package
-manager is only 3 years old, it is currently hosting over 23000 packages with
+manager is only 3 years old, it is currently hosting over 30000 packages with
 more than a million downloads daily, and has quickly become the standard
 way of distributing Javascript code. The NPM package manager is a powerful tool
 for development, publication and deployment of both libraries and applications.
@@ -542,7 +542,7 @@ The most relevant feature in the context CRAN is how NPM declares and resolves
 dependencies.
 
 Package dependencies are defined using a combination of the package \emph{name}
-and \emph{version range descriptor}. This descriptor is specified using a
+and \emph{version range descriptor}. This descriptor is specified with a
 simple dedicated syntax, that extends some of the standard versioning notation.
 Below a snippet taken from the \file{package.json} file in the NPM manual:
 
