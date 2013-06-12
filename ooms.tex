@@ -364,7 +364,7 @@ as a distribution of the 29 \code{base} and \code{recommended} packages.
 However in the case of R, this collection is limited to software that has been centrally
 developed and released by the same group of people; it does not include contributed
 code. Due to the lack of native support for dependency versioning in
-R, several projects have introduced some form of downstream staging in order to
+R, several third party projects have introduced some form of downstream staging in order to
 create stable, redistributable collections R software. This section lists some
 examples and explains why this is suboptimal. In the next section we will
 discuss what would be involved with extending the R release cycle to contributed
@@ -645,8 +645,8 @@ Missing versions could automatically be installed, as nothing gets overwritten.
 \end{example}
 
 Code as above leaves little ambiguity and tremendously increases reliability
-and reproducibility of R code. When the author is explicit about which package
-versions are used, and packages are explicit about dependency versions, an R
+and reproducibility of R code. When the code is explicit about which package
+versions are loaded, and packages are explicit about dependency versions, an R
 script or Sweave document that once worked on a certain version of R, will work
 for other users, on different systems, and keep working over time, regardless
 of upstream changes. For users not concerned with dependency versioning, the
