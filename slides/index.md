@@ -1,6 +1,6 @@
 ---
 title       : Reliability and Reproducibility in R and Dependency Versioning
-subtitle    : Dependency Hell in R
+subtitle    : DLL Hell in R
 author      : Jeroen Ooms
 job         : UCLA
 framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
@@ -10,10 +10,10 @@ widgets     : []            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
 ---
 
-<<echo=FALSE>>=
+<!-- 
 library(slidify)
 library(slidifyLibraries)
-@
+-->
 
 ## CRAN packages
 
@@ -72,6 +72,26 @@ Suggests: hflights, RSQLite, RSQLite.extfuns, RMySQL, RPostgreSQL, data.table,
 
 ---
 
-## Dependency Hell
+## Depenency Conflicts
 
-Depen
+> - DLL Hell (&reg; Microsoft)
+> - R is in the same phase as Windows 98
+> - All dependency relationships are unversioned
+> - This assumes package versions are interchangable.
+> - They are not.
+> - Result: everything constantly breaks due to changes in dependencies.
+
+---
+
+## CRAN Policy
+
+<q> For a package update, please check that any packages depending on this one still pass R CMD check: it is especially expected that you will have checked your own packages. A listing of the reverse dependencies of the current version can be found on the CRAN web page for the package.</q>
+
+---
+
+## Policy Implications
+
+> - Package author responsible
+> - Basically forbids any breaking changes / refactoring / cleanup
+> - Result: popular packages get stuck
+> - Does not solve the actual problem

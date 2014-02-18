@@ -34,7 +34,7 @@
         <slide class="title-slide segue nobackground">
   <hgroup class="auto-fadein">
     <h1>Reliability and Reproducibility in R and Dependency Versioning</h1>
-    <h2>Dependency Hell in R</h2>
+    <h2>DLL Hell in R</h2>
     <p>Jeroen Ooms<br/>UCLA</p>
   </hgroup>
   <article></article>  
@@ -44,10 +44,10 @@
     <!-- SLIDES -->
     <slide class="" id="slide-1" style="background:;">
   <article data-timings="">
-    <p>&lt;<echo=FALSE>&gt;=
+    <!-- 
 library(slidify)
 library(slidifyLibraries)
-@</p>
+-->
 
 <h2>CRAN packages</h2>
 
@@ -132,10 +132,44 @@ Suggests: hflights, RSQLite, RSQLite.extfuns, RMySQL, RPostgreSQL, data.table,
 
 <slide class="" id="slide-5" style="background:;">
   <hgroup>
-    <h2>Dependency Hell</h2>
+    <h2>Depenency Conflicts</h2>
   </hgroup>
   <article data-timings="">
-    <p>Depen</p>
+    <ul class = "build incremental">
+<li>DLL Hell (&reg; Microsoft)</li>
+<li>R is in the same phase as Windows 98</li>
+<li>All dependency relationships are unversioned</li>
+<li>This assumes package versions are interchangable.</li>
+<li>They are not.</li>
+<li>Result: everything constantly breaks due to changes in dependencies.</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-6" style="background:;">
+  <hgroup>
+    <h2>CRAN Policy</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><q> For a package update, please check that any packages depending on this one still pass R CMD check: it is especially expected that you will have checked your own packages. A listing of the reverse dependencies of the current version can be found on the CRAN web page for the package.</q></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-7" style="background:;">
+  <hgroup>
+    <h2>Policy Implications</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul class = "build incremental">
+<li>Package author responsible</li>
+<li>Basically forbids any breaking changes / refactoring / cleanup</li>
+<li>Result: popular packages get stuck</li>
+<li>Does not solve the actual problem</li>
+</ul>
 
   </article>
   <!-- Presenter Notes -->
@@ -171,8 +205,20 @@ Suggests: hflights, RSQLite, RSQLite.extfuns, RMySQL, RPostgreSQL, data.table,
     </li>
     <li>
       <a href="#" target="_self" rel='tooltip' 
-        data-slide=5 title='Dependency Hell'>
+        data-slide=5 title='Depenency Conflicts'>
          5
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=6 title='CRAN Policy'>
+         6
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=7 title='Policy Implications'>
+         7
       </a>
     </li>
   </ul>

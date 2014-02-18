@@ -6,3 +6,8 @@ img {
   border: solid lightgray 1px;
   border-radius: 10px;
 }
+
+q {
+  font-size: 150%;
+  font-style:italic;
+}
