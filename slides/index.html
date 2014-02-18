@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Reliability and Reproducibility in R and Dependency Versioning</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Reliability and Reproducibility in R and Dependency Versioning">
+  <meta name="author" content="Jeroen Ooms">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="./assets/css/jeroen.css"></link>
+<link rel=stylesheet href="./assets/css/ribbons.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>Reliability and Reproducibility in R and Dependency Versioning</h1>
+    <h2>Dependency Hell in R</h2>
+    <p>Jeroen Ooms<br/>UCLA</p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <article data-timings="">
+    <p>&lt;<echo=FALSE>&gt;=
+library(slidify)
+library(slidifyLibraries)
+@</p>
+
+<h2>CRAN packages</h2>
+
+<p><img src="totalcount.png" alt="total count"></p>
+
+<ul class = "build incremental">
+<li>Who uses R packages?</li>
+<li>Who has created R packages?</li>
+<li>Exponential growth</li>
+<li>5000 pkgs on CRAN as of Nov 2013</li>
+<li>More on BioConductor, Github, etc.</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-2" style="background:;">
+  <hgroup>
+    <h2>What is a dependency?</h2>
+  </hgroup>
+  <article data-timings="">
+    <pre><code class="no-highlight">Package: dplyr
+Type: Package
+Title: dplyr: a grammar of data manipulation
+Version: 0.1.1
+Author: Hadley Wickham &lt;h.wickham@gmail.com&gt;, Romain Francois &lt;romain@r-enthusiasts.com&gt;
+Maintainer: Hadley Wickham &lt;h.wickham@gmail.com&gt;
+Description: A fast, consistent tool for working with data frame like objects, both in
+  memory and out of memory.
+URL: https://github.com/hadley/dplyr
+Depends: R (&gt;= 3.0.2)
+Imports: assertthat, utils, methods, Rcpp
+Suggests: hflights, RSQLite, RSQLite.extfuns, RMySQL, RPostgreSQL, data.table, 
+  bigrquery, testthat, Lahman, knitr, microbenchmark, ggplot2, mgcv
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-3" style="background:;">
+  <hgroup>
+    <h2>Depencency Types:</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul class = "build incremental">
+<li>Dependencies between packages: <code>Depends</code>, <code>Imports</code>, <code>Suggests</code>, <code>Enhances</code>, <code>LinkingTo</code>.</li>
+<li>R, Sweave, knitr script depends on package: <code>library(ggplot2)</code></li>
+<li>System/application embedded R functionality.</li>
+</ul>
+
+<h2>Dependency Relations</h2>
+
+<ul class = "build incremental">
+<li>Depends</li>
+<li>Reverse Depends</li>
+<li>Dependency Network (directed graph)</li>
+<li>Indirect Dependencies (transitivity)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-4" style="background:;">
+  <hgroup>
+    <h2>Reverse Dependency Count</h2>
+  </hgroup>
+  <article data-timings="">
+    <p><img src="reversecount.png" alt="reverse count"></p>
+
+<ul class = "build incremental">
+<li>Some popular packages on CRAN</li>
+<li>370 packages depend on MASS (Aug 2012)</li>
+<li>Counting recursive dependencies yields a different list (what would be on top?)</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="" id="slide-5" style="background:;">
+  <hgroup>
+    <h2>Dependency Hell</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Depen</p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title=''>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='What is a dependency?'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Depencency Types:'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Reverse Dependency Count'>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title='Dependency Hell'>
+         5
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>
