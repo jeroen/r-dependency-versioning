@@ -4,7 +4,7 @@
 
 \maketitle
 
-\abstract{
+\begin{abstract}
 One of the most powerful features of R is its infrastructure for contributed
 code. The built-in package manager and complementary repositories
 provide a great system for development and exchange of code, and have played an
@@ -16,7 +16,8 @@ general lack of dependency versioning in the infrastructure. This paper explores
 this problem in greater detail, and suggests approaches taken by other open
 source communities that might work for R as well. Three use cases are defined that
 exemplify the issue, and illustrate how improving this aspect of package management
-could increase reliability while supporting further growth of the R community.}
+could increase reliability while supporting further growth of the R community.
+\end{abstract}
 
 \section{Package management in R}
 
@@ -638,11 +639,11 @@ an argument specifying the version to be loaded. This argument could use the
 same version range descriptor syntax that packages use to declare dependencies.
 Missing versions could automatically be installed, as nothing gets overwritten.
 
-\begin{example}
+\begin{verbatim}
   library(ggplot2, version="0.8.9")
   library(MASS, version="7.3-x")
   library(Matrix, version=">=1.0")
-\end{example}
+\end{verbatim}
 
 Code as above leaves little ambiguity and tremendously increases reliability
 and reproducibility of R code. When the code is explicit about which package
@@ -709,10 +710,4 @@ powering collaboration and uniting efforts within other open source communities.
 
 \bibliography{ooms}
 
-\address{Jeroen Ooms\\
-  Department of Statistics\\
-  University of California\\
-  Los Angeles}\\
-\email{jeroen.ooms@stat.ucla.edu} \\
-\url{http://jeroenooms.github.io/}
 
