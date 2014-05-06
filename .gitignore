@@ -44,3 +44,8 @@ tmp
 !/.texlipse
 .Rproj.user
 *.Rproj
+*-concordance.tex
+thesis.pdf
+thesis.tex
+
+
