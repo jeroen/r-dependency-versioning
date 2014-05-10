@@ -52,6 +52,40 @@
 \newcommand{\dfn}[1]{\emph{#1}}
 \newcommand{\proglang}[1]{\texttt{#1}}
 
+%custom commands
+\newcommand{\CPU}{\texttt{CPU}\xspace}
+\newcommand{\MCMC}{\texttt{MCMC}\xspace}
+\newcommand{\URL}{\texttt{URL}\xspace}
+\newcommand{\DSL}{\texttt{DSL}\xspace}
+\newcommand{\REST}{\texttt{REST}\xspace}
+\newcommand{\HTML}{\texttt{HTML}\xspace}
+\newcommand{\Linux}{\texttt{Linux}\xspace}
+\newcommand{\GET}{\texttt{GET}\xspace}
+\newcommand{\POST}{\texttt{POST}\xspace}
+\newcommand{\JSON}{\texttt{JSON}\xspace}
+\newcommand{\SQL}{\texttt{SQL}\xspace}
+\newcommand{\CGI}{\texttt{CGI}\xspace}
+\newcommand{\R}{\texttt{R}\xspace}
+\newcommand{\Julia}{\texttt{Julia}\xspace}
+\newcommand{\SPSS}{\texttt{SPSS}\xspace}
+\newcommand{\JavaScript}{\texttt{JavaScript}\xspace}
+\newcommand{\CSS}{\texttt{CSS}\xspace}
+\newcommand{\HTTP}{\texttt{HTTP}\xspace}
+\newcommand{\TCP}{\texttt{TCP}\xspace}
+\newcommand{\IP}{\texttt{IP}\xspace}
+\newcommand{\GUI}{\texttt{GUI}\xspace}
+\newcommand{\CLI}{\texttt{CLI}\xspace}
+\newcommand{\UI}{\texttt{UI}\xspace}
+\newcommand{\API}{\texttt{API}\xspace}
+\newcommand{\RPC}{\texttt{RPC}\xspace}
+\newcommand{\ID}{\texttt{ID}\xspace}
+\newcommand{\OpenCPU}{\texttt{OpenCPU}\xspace}
+\newcommand{\Latex}{\LaTeX \xspace}
+\newcommand{\toJSON}{\texttt{toJSON}\xspace}
+\newcommand{\fromJSON}{\texttt{fromJSON}\xspace}
+\newcommand{\XML}{\texttt{XML}\xspace}
+\newcommand{\jsonlite}{\texttt{jsonlite}\xspace}
+
 %trick for using same content file as chatper and article
 \newcommand{\maintitle}[1]{
   \title{#1}
