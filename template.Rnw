@@ -30,7 +30,7 @@
 
 %extra line spacing
 \usepackage{setspace}
-\setstretch{1.5}
+\setstretch{1.25}
 
 %knitr style verbatim blocks
 \newenvironment{codeblock}{
