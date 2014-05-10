@@ -1,6 +1,8 @@
-% !TeX root = RJwrapper.tex
+% !TeX root = template.Rnw
+% !Rnw weave = knitr
+% !TeX program = pdfLaTeX
+
 \title{Possible Directions for Improving Dependency Versioning in R}
-\author{by Jeroen Ooms}
 
 \maketitle
 
@@ -576,7 +578,7 @@ versions as specified by the author. Hence, every installed package has its own 
 of dependencies. This works recursively, i.e. every dependency package inside
 the library again has its own dependency library.
 
-\begin{verbatim}
+\begin{codeblock}
 jeroen@ubuntu:~/Desktop$ npm install d3
 jeroen@ubuntu:~/Desktop$ npm list
 /home/jeroen/Desktop
@@ -593,7 +595,7 @@ jeroen@ubuntu:~/Desktop$ npm list
   │   │   └── delayed-stream@0.0.5
   │   └── mime@1.2.7
   └── sizzle@1.1.0
-\end{verbatim}
+\end{codeblock}
 
 \noindent By default, a package loads dependencies from its private library, and
 the namespace of the dependency is imported explicitly in the code. This way, an
@@ -639,11 +641,11 @@ an argument specifying the version to be loaded. This argument could use the
 same version range descriptor syntax that packages use to declare dependencies.
 Missing versions could automatically be installed, as nothing gets overwritten.
 
-\begin{verbatim}
+<<eval=FALSE>>=
   library(ggplot2, version="0.8.9")
   library(MASS, version="7.3-x")
   library(Matrix, version=">=1.0")
-\end{verbatim}
+@
 
 Code as above leaves little ambiguity and tremendously increases reliability
 and reproducibility of R code. When the code is explicit about which package
@@ -707,7 +709,4 @@ But when the time is ready to make the jump to the next major release of R, we
 hope that R Core will consider revising this important part of the software,
 adopting modern approaches and best practices of package management that are
 powering collaboration and uniting efforts within other open source communities.
-
-\bibliography{ooms}
-
 
