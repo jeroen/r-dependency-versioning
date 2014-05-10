@@ -50,6 +50,7 @@
 \newcommand{\code}[1]{\texttt{#1}}
 \newcommand{\file}[1]{\texttt{#1}}
 \newcommand{\dfn}[1]{\emph{#1}}
+\newcommand{\proglang}[1]{\texttt{#1}}
 
 %custom commands
 \newcommand{\CPU}{\texttt{CPU}\xspace}
