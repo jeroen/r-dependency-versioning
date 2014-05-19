@@ -211,6 +211,7 @@ jeroen@ubuntu:~/Desktop$ npm list
 ```
 
 ---
+
 ## Back to R
 
 ### Versioning dependencies in packages:
